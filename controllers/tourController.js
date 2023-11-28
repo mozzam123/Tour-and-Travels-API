@@ -1,5 +1,18 @@
 const Tour = require("./../models/tourModel");
 
+// Middleware
+exports.AliasTopTours = async(req, res, next) =>{
+  req.query.limit = '5'
+  req.query.sort = '-ratingsAverage,price'
+  req.query.fields = 'name,price,ratingsAverage,summary,difficulty'
+  next();
+}
+
+
+
+
+
+// Get Single Tour
 exports.getTour = async (req, res) => {
   try {
     const tour = await Tour.findById(req.params.id);
@@ -19,6 +32,7 @@ exports.getTour = async (req, res) => {
   }
 };
 
+// Get All Tour
 exports.getAlltour = async (req, res) => {
   try {
     console.log(req.query);
@@ -59,7 +73,6 @@ exports.getAlltour = async (req, res) => {
 
     if (req.query.page) {
       const numTours = await Tour.countDocuments();
-      const total = numTours / req.query.page * 1
       if (skip >= numTours) throw new Error("This page does not exists")
     }
 
@@ -82,6 +95,7 @@ exports.getAlltour = async (req, res) => {
   }
 };
 
+// Create Tour
 exports.createTour = async (req, res) => {
   try {
     const newTour = await Tour.create(req.body);
@@ -99,6 +113,7 @@ exports.createTour = async (req, res) => {
   }
 };
 
+// Update Tour
 exports.updateTour = async (req, res) => {
   try {
     const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
@@ -119,6 +134,7 @@ exports.updateTour = async (req, res) => {
   }
 };
 
+// Delete Tour
 exports.deleteTour = async (req, res) => {
   try {
     const tour = await Tour.findByIdAndDelete(req.params.id);
@@ -133,3 +149,4 @@ exports.deleteTour = async (req, res) => {
     });
   }
 };
+
