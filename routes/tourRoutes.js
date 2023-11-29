@@ -8,7 +8,8 @@ const tourController = require('./../controllers/tourController');
 // router.use(tourController.checkBody)
 
 // Get top 
-router.route('/top-5-cheap').get(tourController.AliasTopTours, tourController.getAlltour)
+// router.route('/top-5-cheap').get(tourController.AliasTopTours, tourController.getAlltour)
+router.route('/top-5-cheap').get(tourController.getTourStat)
 
 router
   .route('/')
